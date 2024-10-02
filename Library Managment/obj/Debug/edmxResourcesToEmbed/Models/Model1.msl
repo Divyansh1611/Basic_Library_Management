@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="librarymanagementModelStoreContainer" CdmEntityContainer="librarymanagementEntities1">
+    <EntitySetMapping Name="create_books">
+      <EntityTypeMapping TypeName="librarymanagementModel.create_books">
+        <MappingFragment StoreEntitySet="create_books">
+          <ScalarProperty Name="book_id" ColumnName="book_id" />
+          <ScalarProperty Name="book_name" ColumnName="book_name" />
+          <ScalarProperty Name="book_description" ColumnName="book_description" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="book_user_id" ColumnName="book_user_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="crud_book">
+      <EntityTypeMapping TypeName="librarymanagementModel.crud_book">
+        <MappingFragment StoreEntitySet="crud_book">
+          <ScalarProperty Name="issue_id" ColumnName="issue_id" />
+          <ScalarProperty Name="issue_from" ColumnName="issue_from" />
+          <ScalarProperty Name="issue_to" ColumnName="issue_to" />
+          <ScalarProperty Name="person_name" ColumnName="person_name" />
+          <ScalarProperty Name="book_name" ColumnName="book_name" />
+          <ScalarProperty Name="cr_id" ColumnName="cr_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="librarymanagementModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_tbl">
+      <EntityTypeMapping TypeName="librarymanagementModel.user_tbl">
+        <MappingFragment StoreEntitySet="user_tbl">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="user_name" ColumnName="user_name" />
+          <ScalarProperty Name="password" ColumnName="password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

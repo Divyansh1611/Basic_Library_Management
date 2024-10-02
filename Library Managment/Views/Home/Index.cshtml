@@ -1,0 +1,32 @@
+﻿@model Library_Managment.Models.user_tbl
+
+@{
+    ViewBag.Title = "Library Managment System";
+}
+
+<main>
+    <section class="row" aria-labelledby="aspnetTitle">
+        <h1 id="title">Log In</h1>
+    </section>
+
+    <div class="row">
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>@Html.LabelFor(x => x.user_name)</h4>
+                @Html.TextBoxFor(x => x.user_name, new {@class = "user_name"})
+
+                <br />
+                <h4>@Html.LabelFor(x => x.password) </h4>
+                @Html.PasswordFor(x => x.password, new {@class = "password"})
+
+                <br />
+                <input type="submit" value="Submit"/>
+
+
+            </div>
+        }
+    </div>
+</main>

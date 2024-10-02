@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="librarymanagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="create_books">
+          <Key>
+            <PropertyRef Name="book_id" />
+          </Key>
+          <Property Name="book_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="book_name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="book_description" Type="varchar" MaxLength="50" />
+          <Property Name="created_date" Type="date" />
+          <Property Name="book_user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="crud_book">
+          <Key>
+            <PropertyRef Name="issue_id" />
+          </Key>
+          <Property Name="issue_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="issue_from" Type="date" Nullable="false" />
+          <Property Name="issue_to" Type="date" Nullable="false" />
+          <Property Name="person_name" Type="varchar" MaxLength="20" />
+          <Property Name="book_name" Type="varchar" MaxLength="20" />
+          <Property Name="cr_id" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="user_tbl">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__create_bo__book___38996AB5">
+          <End Role="user_tbl" Type="Self.user_tbl" Multiplicity="0..1" />
+          <End Role="create_books" Type="Self.create_books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_tbl">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="create_books">
+              <PropertyRef Name="book_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__crud_book__cr_id__4BAC3F29">
+          <End Role="create_books" Type="Self.create_books" Multiplicity="0..1" />
+          <End Role="crud_book" Type="Self.crud_book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="create_books">
+              <PropertyRef Name="book_id" />
+            </Principal>
+            <Dependent Role="crud_book">
+              <PropertyRef Name="cr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="librarymanagementModelStoreContainer">
+          <EntitySet Name="create_books" EntityType="Self.create_books" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="crud_book" EntityType="Self.crud_book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_tbl" EntityType="Self.user_tbl" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__create_bo__book___38996AB5" Association="Self.FK__create_bo__book___38996AB5">
+            <End Role="user_tbl" EntitySet="user_tbl" />
+            <End Role="create_books" EntitySet="create_books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__crud_book__cr_id__4BAC3F29" Association="Self.FK__crud_book__cr_id__4BAC3F29">
+            <End Role="create_books" EntitySet="create_books" />
+            <End Role="crud_book" EntitySet="crud_book" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="librarymanagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="create_books">
+          <Key>
+            <PropertyRef Name="book_id" />
+          </Key>
+          <Property Name="book_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="book_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="book_description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="created_date" Type="DateTime" Precision="0" />
+          <Property Name="book_user_id" Type="Int32" />
+          <NavigationProperty Name="user_tbl" Relationship="Self.FK__create_bo__book___38996AB5" FromRole="create_books" ToRole="user_tbl" />
+          <NavigationProperty Name="crud_book" Relationship="Self.FK__crud_book__cr_id__4BAC3F29" FromRole="create_books" ToRole="crud_book" />
+        </EntityType>
+        <EntityType Name="crud_book">
+          <Key>
+            <PropertyRef Name="issue_id" />
+          </Key>
+          <Property Name="issue_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="issue_from" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="issue_to" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="person_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="book_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cr_id" Type="Int32" />
+          <NavigationProperty Name="create_books" Relationship="Self.FK__crud_book__cr_id__4BAC3F29" FromRole="crud_book" ToRole="create_books" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="user_tbl">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="create_books" Relationship="Self.FK__create_bo__book___38996AB5" FromRole="user_tbl" ToRole="create_books" />
+        </EntityType>
+        <Association Name="FK__create_bo__book___38996AB5">
+          <End Role="user_tbl" Type="Self.user_tbl" Multiplicity="0..1" />
+          <End Role="create_books" Type="Self.create_books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_tbl">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="create_books">
+              <PropertyRef Name="book_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__crud_book__cr_id__4BAC3F29">
+          <End Role="create_books" Type="Self.create_books" Multiplicity="0..1" />
+          <End Role="crud_book" Type="Self.crud_book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="create_books">
+              <PropertyRef Name="book_id" />
+            </Principal>
+            <Dependent Role="crud_book">
+              <PropertyRef Name="cr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="librarymanagementEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="create_books" EntityType="Self.create_books" />
+          <EntitySet Name="crud_book" EntityType="Self.crud_book" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="user_tbl" EntityType="Self.user_tbl" />
+          <AssociationSet Name="FK__create_bo__book___38996AB5" Association="Self.FK__create_bo__book___38996AB5">
+            <End Role="user_tbl" EntitySet="user_tbl" />
+            <End Role="create_books" EntitySet="create_books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__crud_book__cr_id__4BAC3F29" Association="Self.FK__crud_book__cr_id__4BAC3F29">
+            <End Role="create_books" EntitySet="create_books" />
+            <End Role="crud_book" EntitySet="crud_book" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="librarymanagementModelStoreContainer" CdmEntityContainer="librarymanagementEntities1">
+          <EntitySetMapping Name="create_books">
+            <EntityTypeMapping TypeName="librarymanagementModel.create_books">
+              <MappingFragment StoreEntitySet="create_books">
+                <ScalarProperty Name="book_id" ColumnName="book_id" />
+                <ScalarProperty Name="book_name" ColumnName="book_name" />
+                <ScalarProperty Name="book_description" ColumnName="book_description" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="book_user_id" ColumnName="book_user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="crud_book">
+            <EntityTypeMapping TypeName="librarymanagementModel.crud_book">
+              <MappingFragment StoreEntitySet="crud_book">
+                <ScalarProperty Name="issue_id" ColumnName="issue_id" />
+                <ScalarProperty Name="issue_from" ColumnName="issue_from" />
+                <ScalarProperty Name="issue_to" ColumnName="issue_to" />
+                <ScalarProperty Name="person_name" ColumnName="person_name" />
+                <ScalarProperty Name="book_name" ColumnName="book_name" />
+                <ScalarProperty Name="cr_id" ColumnName="cr_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="librarymanagementModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_tbl">
+            <EntityTypeMapping TypeName="librarymanagementModel.user_tbl">
+              <MappingFragment StoreEntitySet="user_tbl">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

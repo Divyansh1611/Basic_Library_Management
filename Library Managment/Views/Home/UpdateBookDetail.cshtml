@@ -1,0 +1,61 @@
+﻿@model Library_Managment.Models.create_books
+@using Library_Managment.CustomHelpers
+
+@{
+    ViewBag.Title = "UpdateBookDetail";
+}
+
+
+<main>
+    <section class="row">
+        <h4>Update Book</h4>
+
+
+        <div class="form-horizontal">
+            <h4>@Html.LabelFor(x => x.book_name)</h4>
+            @Html.TextBoxFor(x => x.book_name, new { @id = "bookTitle", value = Model.book_name})
+
+            <br />
+            <br />
+            <h4>@Html.LabelFor(x => x.book_description)</h4>
+            <textarea id="userDescription" name="area" rows="5" cols="50" >@Model.book_description</textarea>
+
+            <br />
+            <input type="button" value="Create" onclick="store()" />
+        </div>
+        <p id="message"></p>
+    </section>
+</main>
+
+<script>
+
+    function store() {
+        var book_title = $('#bookTitle').val();
+        var book_desc = $('#userDescription').val();
+        
+        var obj = {
+            book_id : @Model.book_id,
+            book_name: book_title,
+            book_description: book_desc};
+
+        console.log(obj);
+        submitForm(obj);
+    }
+
+    function submitForm(obj) {
+        $.ajax({
+            url: '@Url.Action("UpdateBookDetail", "Home")',
+            method: "POST",
+            data: obj,
+            success: function (data) {
+                $('#message').html('<div class="alert alert-success">' + data.message + '</div>');
+
+            },
+            error: function (err) {
+                $('#message').html('<div class="alert alert-danger">An error occurred while creating the book. Please try again.</div>');
+                console.log(err);
+            }
+        })
+    }
+
+</script>

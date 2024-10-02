@@ -1,0 +1,33 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Library_Managment.Models.create_books>
+
+@{
+    ViewBag.Title = "Viewlist";
+}
+
+<main class="row">
+
+    <h4>All Books Lists :</h4>
+    <br />
+    @foreach (var item in Model)
+    {
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">@item.book_name</h5>
+                <p class="card-text">@item.book_description</p>
+                <a href='@Url.Action("Viewmore","Home", new {id = item.book_id, name = item.book_name})' class="btn btn-primary">Book Issue !</a>
+                <a href='@Url.Action("UpdateBookDetail","Home", new {id = item.book_id, name = item.book_name})' class="btn btn-warning">Update</a>
+                <a href='@Url.Action("Delete","Home", new {id = item.book_id, name = item.book_name})' type="button" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    }
+
+    <div id="container" style="margin-left: 20px">
+        <p></p>
+        <p></p>
+        <div class="pagination" style="margin-left: 400px">
+            @Html.PagedListPager(Model, page => Url.Action("Viewlist", new { page }))
+        </div>
+    </div>
+</main>
+

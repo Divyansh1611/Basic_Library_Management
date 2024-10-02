@@ -1,0 +1,73 @@
+﻿@model Library_Managment.Models.crud_book
+@{
+    ViewBag.Title = "Viewmore";
+}
+
+<main>
+    <section class="row">
+        <h4>Create Books For Libarary !!.</h4>
+
+
+        <div class="form-horizontal">
+            <h4>@Html.LabelFor(x => x.person_name)</h4>
+            @Html.TextBoxFor(x => x.person_name, new { @id = "name" })
+
+            <br />
+            <br />
+            <h4>@Html.LabelFor(x => x.issue_from)</h4>
+            <input type="date" id="issuefrom" name="Created date" />
+
+            <br />
+
+            <h4>@Html.LabelFor(x => x.issue_to) </h4>
+            <input type="date" id="issue_to" name="Created date" />
+
+            <br />
+            <input type="button" value="Create" onclick="store()" />
+        </div>
+        <p id="message"></p>
+    </section>
+</main>
+
+<script>
+
+    function store() {
+        var name = $('#name').val();
+        var from = $('#issuefrom').val();
+        var to = $('#issue_to').val();
+
+        console.log(to);
+
+        var obj = {
+            issue_from: from,
+            issue_to: to,
+            person_name: name,
+            book_name: "@Model.book_name",
+            cr_id: @Model.cr_id
+        };
+
+        console.log(obj);
+
+        submitForm(obj);
+        //console.log(obj);
+        //window.alert(obj);
+    }
+
+    function submitForm(obj) {
+        $.ajax({
+            url: '@Url.Action("Viewmore", "Home")',
+            method: "POST",
+            data: obj,
+            success: function (data) {
+                $('#message').html('<div class="alert alert-success">' + data.message + '</div>');
+                
+            },
+            error: function (err) {
+                $('#message').html('<div class="alert alert-danger">An error occurred while creating the book. Please try again.</div>');
+                console.log(err);
+            }
+        })
+    }
+
+</script>
+

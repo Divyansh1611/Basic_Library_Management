@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="librarymanagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="create_books">
+    <Key>
+      <PropertyRef Name="book_id" />
+    </Key>
+    <Property Name="book_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="book_name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="book_description" Type="varchar" MaxLength="50" />
+    <Property Name="created_date" Type="date" />
+    <Property Name="book_user_id" Type="int" />
+  </EntityType>
+  <EntityType Name="crud_book">
+    <Key>
+      <PropertyRef Name="issue_id" />
+    </Key>
+    <Property Name="issue_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="issue_from" Type="date" Nullable="false" />
+    <Property Name="issue_to" Type="date" Nullable="false" />
+    <Property Name="person_name" Type="varchar" MaxLength="20" />
+    <Property Name="book_name" Type="varchar" MaxLength="20" />
+    <Property Name="cr_id" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="user_tbl">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__create_bo__book___38996AB5">
+    <End Role="user_tbl" Type="Self.user_tbl" Multiplicity="0..1" />
+    <End Role="create_books" Type="Self.create_books" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_tbl">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="create_books">
+        <PropertyRef Name="book_user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__crud_book__cr_id__4BAC3F29">
+    <End Role="create_books" Type="Self.create_books" Multiplicity="0..1" />
+    <End Role="crud_book" Type="Self.crud_book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="create_books">
+        <PropertyRef Name="book_id" />
+      </Principal>
+      <Dependent Role="crud_book">
+        <PropertyRef Name="cr_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="librarymanagementModelStoreContainer">
+    <EntitySet Name="create_books" EntityType="Self.create_books" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="crud_book" EntityType="Self.crud_book" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_tbl" EntityType="Self.user_tbl" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__create_bo__book___38996AB5" Association="Self.FK__create_bo__book___38996AB5">
+      <End Role="user_tbl" EntitySet="user_tbl" />
+      <End Role="create_books" EntitySet="create_books" />
+    </AssociationSet>
+    <AssociationSet Name="FK__crud_book__cr_id__4BAC3F29" Association="Self.FK__crud_book__cr_id__4BAC3F29">
+      <End Role="create_books" EntitySet="create_books" />
+      <End Role="crud_book" EntitySet="crud_book" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
